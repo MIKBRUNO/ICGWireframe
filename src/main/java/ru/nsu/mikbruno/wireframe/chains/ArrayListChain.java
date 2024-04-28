@@ -1,4 +1,4 @@
-package ru.nsu.mikbruno.wireframe;
+package ru.nsu.mikbruno.wireframe.chains;
 
 import org.jetbrains.annotations.UnmodifiableView;
 import ru.nsu.mikbruno.util.ArrayListPair;

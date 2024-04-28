@@ -14,9 +14,7 @@ public class MainToolBar extends JToolBar {
             for (Interaction interaction : group.getInteractions()) {
                 JButton button = new JButton();
                 if (interaction.actionImage() != null) {
-                    button.setIcon(new ImageIcon(interaction.actionImage()
-                            .getScaledInstance(-1, 16, Image.SCALE_FAST)
-                    ));
+                    button.setIcon(interaction.actionImage());
                 }
                 else {
                     button.setText(interaction.name());

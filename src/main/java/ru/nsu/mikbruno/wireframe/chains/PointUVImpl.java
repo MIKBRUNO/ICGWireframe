@@ -1,6 +1,4 @@
-package ru.nsu.mikbruno.wireframe;
-
-import java.io.Serializable;
+package ru.nsu.mikbruno.wireframe.chains;
 
 public class PointUVImpl implements PointUV {
     private double u, v;

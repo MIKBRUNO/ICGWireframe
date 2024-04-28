@@ -1,4 +1,4 @@
-package ru.nsu.mikbruno.wireframe;
+package ru.nsu.mikbruno.wireframe.chains;
 
 import java.io.Serializable;
 

@@ -3,7 +3,7 @@ package ru.nsu.mikbruno.gui.bspline;
 import ru.nsu.mikbruno.interaction.observer.Observable;
 import ru.nsu.mikbruno.interaction.observer.ObservableImpl;
 import ru.nsu.mikbruno.interaction.observer.Observer;
-import ru.nsu.mikbruno.wireframe.PointUV;
+import ru.nsu.mikbruno.wireframe.chains.PointUV;
 
 public class PointUVObservable implements Observable, PointUV {
     private PointUV point = null;

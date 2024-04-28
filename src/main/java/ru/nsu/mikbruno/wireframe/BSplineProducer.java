@@ -1,5 +1,10 @@
 package ru.nsu.mikbruno.wireframe;
 
+import ru.nsu.mikbruno.wireframe.chains.ArrayListChainObservable;
+import ru.nsu.mikbruno.wireframe.chains.Chain;
+import ru.nsu.mikbruno.wireframe.chains.PointUV;
+import ru.nsu.mikbruno.wireframe.chains.PointUVImpl;
+
 import java.util.Iterator;
 
 public final class BSplineProducer {

@@ -2,10 +2,11 @@ package ru.nsu.mikbruno.interaction;
 
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 
 public interface InteractionUI {
-    BufferedImage actionImage();
+    Icon actionImage();
 
     @NotNull
     String name();

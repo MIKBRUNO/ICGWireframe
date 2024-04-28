@@ -2,8 +2,10 @@ package ru.nsu.mikbruno;
 
 import ru.nsu.mikbruno.gui.wireframe.MainWindow;
 
+import java.io.IOException;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         new MainWindow();
 //        Observables observables = new Observables(Map.of(
 //                "chain",

@@ -2,9 +2,9 @@ package ru.nsu.mikbruno.gui.bspline;
 
 import ru.nsu.mikbruno.interaction.observer.IntObservable;
 import ru.nsu.mikbruno.interaction.observer.Observables;
-import ru.nsu.mikbruno.wireframe.ArrayListChainObservable;
-import ru.nsu.mikbruno.wireframe.PointUV;
-import ru.nsu.mikbruno.wireframe.PointUVImpl;
+import ru.nsu.mikbruno.wireframe.chains.ArrayListChainObservable;
+import ru.nsu.mikbruno.wireframe.chains.PointUV;
+import ru.nsu.mikbruno.wireframe.chains.PointUVImpl;
 
 import javax.swing.*;
 import java.awt.*;
@@ -111,11 +111,15 @@ public class BSplineEditor extends JDialog {
                 "current point",
                 currentPoint,
                 "splineSegments",
-                splineSeg
+                splineSeg,
+                "spline",
+                applicationObservables.getValue("spline")
         ));
         BSplineView viewPanel = new BSplineView(observables);
         add(viewPanel, BorderLayout.CENTER);
 
         normButton.addActionListener(e -> viewPanel.normalizeView());
+
+        setVisible(true);
     }
 }

@@ -6,6 +6,10 @@ import ru.nsu.mikbruno.interaction.observer.Observables;
 import ru.nsu.mikbruno.interaction.observer.Observer;
 import ru.nsu.mikbruno.util.Pair;
 import ru.nsu.mikbruno.wireframe.*;
+import ru.nsu.mikbruno.wireframe.chains.ArrayListChainObservable;
+import ru.nsu.mikbruno.wireframe.chains.Chain;
+import ru.nsu.mikbruno.wireframe.chains.PointUV;
+import ru.nsu.mikbruno.wireframe.chains.PointUVImpl;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,7 +46,8 @@ public class BSplineView extends JPanel {
 
         this.chain = observables.<ArrayListChainObservable<PointUV>>getValue("chain");
         IntObservable splineSegments = observables.getValue("splineSegments");
-        spline = BSplineProducer.produce(this.chain, splineSegments.getValue());
+        spline = observables.getValue("spline");
+        spline.setPoints(BSplineProducer.produce(this.chain, splineSegments.getValue()).getPoints());
         Observer splineObserver = o -> {
             spline.setPoints(BSplineProducer.produce(this.chain, splineSegments.getValue()).getPoints());
             repaint();
@@ -155,7 +160,7 @@ public class BSplineView extends JPanel {
         }
         for (Iterator<Pair<PointUV>> it = spline.getEdgesIterator(); it.hasNext(); ) {
             Pair<PointUV> p = it.next();
-            g.setColor(Color.CYAN);
+            g.setColor(Color.RED);
             g.drawLine(
                     convertPosU(p.first().getU()), convertPosV(p.first().getV()),
                     convertPosU(p.second().getU()), convertPosV(p.second().getV())
