@@ -53,6 +53,14 @@ public class BSplineView extends JPanel {
         currentPoint.addObserver(splineObserver);
     }
 
+    public void normalizeView() {
+        viewportCenter.setUV(0, 0);
+        viewportWidth = 0;
+        viewportHeight = 0;
+        updatePanelSize();
+        repaint();
+    }
+
     private int convertPosU(double u) {
         return (int) Math.round(
                 (u - viewportCenter.getU() + viewportWidth / 2)

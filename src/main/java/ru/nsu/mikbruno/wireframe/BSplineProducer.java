@@ -17,8 +17,8 @@ public final class BSplineProducer {
         Iterator<PointUV> it = chain.getPointsIterator();
         PointUV Pm1 = it.next();
         PointUV P0 = it.next();
+        PointUV P1 = it.next();
         while (it.hasNext()) {
-            PointUV P1 = it.next();
             PointUV P2 = it.next();
             for (int i = 0; i < splineSegments; ++i) {
                 double t = (double) i / splineSegments;
@@ -38,8 +38,26 @@ public final class BSplineProducer {
                 )[0][0];
                 result.addPoint(new PointUVImpl(ui, vi));
             }
-            Pm1 = P1;
-            P0 = P2;
+            if (!it.hasNext()) {
+                double [][] TM = MatrixUtils.matrixMultiplication(
+                        new double[][] {{1, 1, 1, 1}},
+                        M, 1, 4, 4
+                );
+                double ui = MatrixUtils.matrixMultiplication(
+                        TM,
+                        new double[][] {{Pm1.getU()}, {P0.getU()}, {P1.getU()}, {P2.getU()}},
+                        1, 4, 1
+                )[0][0];
+                double vi = MatrixUtils.matrixMultiplication(
+                        TM,
+                        new double[][] {{Pm1.getV()}, {P0.getV()}, {P1.getV()}, {P2.getV()}},
+                        1, 4, 1
+                )[0][0];
+                result.addPoint(new PointUVImpl(ui, vi));
+            }
+            Pm1 = P0;
+            P0 = P1;
+            P1 = P2;
         }
 
         return result;

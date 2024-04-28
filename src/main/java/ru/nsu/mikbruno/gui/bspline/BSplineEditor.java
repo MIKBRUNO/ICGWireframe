@@ -24,11 +24,11 @@ public class BSplineEditor extends JDialog {
         setResizable(RESIZABLE);
         setLocationByPlatform(true);
         setLayout(new BorderLayout());
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 
         ArrayListChain<PointUV> chain = applicationObservables.getValue("chain");
         PointUVObservable currentPoint = new PointUVObservable(null);
-        JPanel settings = new JPanel(new GridLayout(3, 4));
 
         JSpinner pointsSpinner = new JSpinner(new SpinnerNumberModel(
                 chain.getPoints().size(), 4, 10, 1
@@ -89,12 +89,20 @@ public class BSplineEditor extends JDialog {
                 (Double) currentPointVSpinner.getValue()
         ));
 
+        JButton okButton = new JButton("Ok");
+        JButton applyButton = new JButton("Apply");
+        JButton normButton = new JButton("Normalize");
+
+        JPanel settings = new JPanel(new GridLayout(3, 5));
         settings.add(new Label("N")); settings.add(splineSegSpinner);
         settings.add(new Label("K")); settings.add(pointsSpinner);
+        settings.add(okButton);
         settings.add(new Label("M1")); settings.add(circleSegSpinner);
         settings.add(new Label("M")); settings.add(gensSpinner);
+        settings.add(applyButton);
         settings.add(new Label("Current U")); settings.add(currentPointUSpinner);
         settings.add(new Label("Current V")); settings.add(currentPointVSpinner);
+        settings.add(normButton);
         add(settings, BorderLayout.SOUTH);
 
 
@@ -108,5 +116,7 @@ public class BSplineEditor extends JDialog {
         ));
         BSplineView viewPanel = new BSplineView(observables);
         add(viewPanel, BorderLayout.CENTER);
+
+        normButton.addActionListener(e -> viewPanel.normalizeView());
     }
 }
