@@ -35,8 +35,6 @@ public class MainWindow extends JFrame {
                         new PointUVImpl(1, 2),
                         new PointUVImpl(0, 2)
                 )),
-                "spline",
-                new ArrayListChainObservable<PointUV>(),
                 "spline_segments",
                 new IntObservable(1),
                 "generatricies",

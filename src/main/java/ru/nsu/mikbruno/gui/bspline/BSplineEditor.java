@@ -111,9 +111,7 @@ public class BSplineEditor extends JDialog {
                 "current point",
                 currentPoint,
                 "splineSegments",
-                splineSeg,
-                "spline",
-                applicationObservables.getValue("spline")
+                splineSeg
         ));
         BSplineView viewPanel = new BSplineView(observables);
         add(viewPanel, BorderLayout.CENTER);

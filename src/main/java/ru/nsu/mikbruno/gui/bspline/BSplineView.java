@@ -46,8 +46,7 @@ public class BSplineView extends JPanel {
 
         this.chain = observables.<ArrayListChainObservable<PointUV>>getValue("chain");
         IntObservable splineSegments = observables.getValue("splineSegments");
-        spline = observables.getValue("spline");
-        spline.setPoints(BSplineProducer.produce(this.chain, splineSegments.getValue()).getPoints());
+        spline = BSplineProducer.produce(this.chain, splineSegments.getValue());
         Observer splineObserver = o -> {
             spline.setPoints(BSplineProducer.produce(this.chain, splineSegments.getValue()).getPoints());
             repaint();
