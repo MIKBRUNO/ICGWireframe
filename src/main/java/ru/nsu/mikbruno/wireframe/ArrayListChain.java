@@ -1,21 +1,16 @@
 package ru.nsu.mikbruno.wireframe;
 
 import org.jetbrains.annotations.UnmodifiableView;
-import ru.nsu.mikbruno.interaction.observer.Observable;
-import ru.nsu.mikbruno.interaction.observer.ObservableImpl;
-import ru.nsu.mikbruno.interaction.observer.Observer;
 import ru.nsu.mikbruno.util.ArrayListPair;
 import ru.nsu.mikbruno.util.Pair;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-public class ArrayListChain<T> implements Chain<T>, Observable {
+public class ArrayListChain<T> implements Chain<T> {
     private final ArrayList<T> chain;
-
     private boolean closure = false;
 
     public ArrayListChain() {
@@ -41,7 +36,6 @@ public class ArrayListChain<T> implements Chain<T>, Observable {
     public void setPoints(List<T> points) {
         this.chain.clear();
         this.chain.addAll(points);
-        observable.notifyObservers(null);
     }
 
     @Override
@@ -80,14 +74,11 @@ public class ArrayListChain<T> implements Chain<T>, Observable {
     @Override
     public void addPoint(T p) {
         chain.add(p);
-        observable.notifyObservers(null);
     }
 
     @Override
     public T removePoint() {
-        T res = chain.remove(chain.size() - 1);
-        observable.notifyObservers(null);
-        return res;
+        return chain.remove(chain.size() - 1);
     }
 
     @Override
@@ -98,27 +89,5 @@ public class ArrayListChain<T> implements Chain<T>, Observable {
     @Override
     public void setClosure(boolean closure) {
         this.closure = closure;
-    }
-
-    private final ObservableImpl observable = new ObservableImpl();
-
-    @Override
-    public void addObserver(Observer o) {
-        observable.addObserver(o);
-    }
-
-    @Override
-    public void removeObserver(Observer o) {
-        observable.removeObserver(o);
-    }
-
-    @Override
-    public void removeObservers() {
-        observable.removeObservers();
-    }
-
-    @Override
-    public void notifyObservers(Object o) {
-        observable.notifyObservers(o);
     }
 }

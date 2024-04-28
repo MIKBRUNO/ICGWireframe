@@ -13,7 +13,7 @@ public final class BSplineProducer {
         if (chain.getPoints().size() < 4) {
             throw new IllegalArgumentException("There should be not less then 4 points in chain");
         }
-        Chain<PointUV> result = new ArrayListChain<>();
+        Chain<PointUV> result = new ArrayListChainObservable<>();
         Iterator<PointUV> it = chain.getPointsIterator();
         PointUV Pm1 = it.next();
         PointUV P0 = it.next();

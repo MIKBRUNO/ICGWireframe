@@ -5,7 +5,6 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.image.BufferedImage;
 
 public interface InteractionUI {
-    @NotNull
     BufferedImage actionImage();
 
     @NotNull

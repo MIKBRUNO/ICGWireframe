@@ -2,13 +2,12 @@ package ru.nsu.mikbruno.gui.bspline;
 
 import ru.nsu.mikbruno.interaction.observer.IntObservable;
 import ru.nsu.mikbruno.interaction.observer.Observables;
-import ru.nsu.mikbruno.wireframe.ArrayListChain;
+import ru.nsu.mikbruno.wireframe.ArrayListChainObservable;
 import ru.nsu.mikbruno.wireframe.PointUV;
 import ru.nsu.mikbruno.wireframe.PointUVImpl;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 import java.util.Map;
 
 public class BSplineEditor extends JDialog {
@@ -27,7 +26,7 @@ public class BSplineEditor extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 
-        ArrayListChain<PointUV> chain = applicationObservables.getValue("chain");
+        ArrayListChainObservable<PointUV> chain = applicationObservables.getValue("chain");
         PointUVObservable currentPoint = new PointUVObservable(null);
 
         JSpinner pointsSpinner = new JSpinner(new SpinnerNumberModel(

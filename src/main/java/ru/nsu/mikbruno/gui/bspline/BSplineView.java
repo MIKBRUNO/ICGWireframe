@@ -40,7 +40,7 @@ public class BSplineView extends JPanel {
         addMouseWheelListener(mouseListener);
         addMouseListener(mouseListener);
 
-        this.chain = observables.<ArrayListChain<PointUV>>getValue("chain");
+        this.chain = observables.<ArrayListChainObservable<PointUV>>getValue("chain");
         IntObservable splineSegments = observables.getValue("splineSegments");
         spline = BSplineProducer.produce(this.chain, splineSegments.getValue());
         Observer splineObserver = o -> {
