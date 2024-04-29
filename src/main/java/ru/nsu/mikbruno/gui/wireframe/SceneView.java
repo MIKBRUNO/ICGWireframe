@@ -32,8 +32,8 @@ public class SceneView extends JPanel {
         if (pitch.getValue() > Math.PI / 2) {
             pitch.setValue(Math.PI / 2);
         }
-        else if (yaw.getValue() < -2*Math.PI || yaw.getValue() > 2*Math.PI) {
-            yaw.setValue(0);
+        else if (pitch.getValue() < -Math.PI / 2) {
+            pitch.setValue(-Math.PI / 2);
         }
     }
 
