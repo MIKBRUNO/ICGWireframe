@@ -1,4 +1,4 @@
-package ru.nsu.mikbruno.wireframe;
+package ru.nsu.mikbruno.wireframe.scenes;
 
 import ru.nsu.mikbruno.wireframe.chains.Chain;
 import ru.nsu.mikbruno.wireframe.homogenous.Point3D;

@@ -59,7 +59,9 @@ public final class BSplineProducer {
                         TM,
                         new double[][] {{Pm1.getV()}, {P0.getV()}, {P1.getV()}, {P2.getV()}}
                 )[0][0];
-                result.addPoint(new PointUVImpl(ui, vi));
+                PointUV point = new PointUVImpl(ui, vi);
+                result.addPoint(point);
+                onSegment.accept(point);
             }
             Pm1 = P0;
             P0 = P1;

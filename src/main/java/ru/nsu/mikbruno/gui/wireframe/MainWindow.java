@@ -52,6 +52,10 @@ public class MainWindow extends JFrame {
 
         setJMenuBar(new MainMenuBar(groups));
         add(new MainToolBar(groups), BorderLayout.NORTH);
+
+        SceneView view = new SceneView(observables);
+        add(view, BorderLayout.CENTER);
+
         pack();
         setVisible(true);
     }

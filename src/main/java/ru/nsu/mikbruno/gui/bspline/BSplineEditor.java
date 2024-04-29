@@ -57,7 +57,7 @@ public class BSplineEditor extends JDialog {
 
         IntObservable gens = applicationObservables.getValue("generatricies");
         JSpinner gensSpinner = new JSpinner(new SpinnerNumberModel(
-                gens.getValue(), 1, 100, 1
+                gens.getValue(), 2, 100, 1
         ));
         gens.addObserver(gensSpinner::setValue);
         gensSpinner.addChangeListener(e -> gens.setValue((Integer) gensSpinner.getValue()));
@@ -79,6 +79,7 @@ public class BSplineEditor extends JDialog {
             currentPointUSpinner.setValue(currentPoint.getU());
             currentPointVSpinner.setValue(currentPoint.getV());
         });
+        currentPoint.addObserver(chain::notifyObservers);
         currentPointUSpinner.addChangeListener(e -> currentPoint.setUV(
                 (Double) currentPointUSpinner.getValue(),
                 currentPoint.getV()
@@ -118,6 +119,7 @@ public class BSplineEditor extends JDialog {
 
         normButton.addActionListener(e -> viewPanel.normalizeView());
 
+        pack();
         setVisible(true);
     }
 }

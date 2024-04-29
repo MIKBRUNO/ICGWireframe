@@ -28,9 +28,9 @@ public class RotateOperator extends Operator {
 
     private double[][] rotY(double rad) {
         return new double[][] {
-                {Math.cos(rad), 0, -Math.sin(rad), 0},
+                {Math.cos(rad), 0, Math.sin(rad), 0},
                 {0, 1, 0, 0},
-                {Math.sin(rad), 0, Math.cos(rad), 0},
+                {-Math.sin(rad), 0, Math.cos(rad), 0},
                 {0, 0, 0, 1},
         };
     }

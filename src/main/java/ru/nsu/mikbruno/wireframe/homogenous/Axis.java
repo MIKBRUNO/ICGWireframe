@@ -2,7 +2,7 @@ package ru.nsu.mikbruno.wireframe.homogenous;
 
 public enum Axis {
     X , Y, Z;
-    static final Axis XY = Z;
-    static final Axis XZ = Y;
-    static final Axis YZ = X;
+    public static final Axis XY = Z;
+    public static final Axis XZ = Y;
+    public static final Axis YZ = X;
 }

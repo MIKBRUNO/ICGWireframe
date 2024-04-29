@@ -54,19 +54,26 @@ public class ArrayListChain<T> implements Chain<T> {
         return new Iterator<>() {
             private final ArrayListPair<T> current = pair;
             private final Iterator<T> iterator = getPointsIterator();
+            private T first = pair != null ? pair.first() : null;
 
             @Override
             public boolean hasNext() {
-                return current != null && iterator.hasNext();
+                return current != null && (iterator.hasNext() || (isClosed() && first != null));
             }
 
             @Override
             public Pair<T> next() {
                 if (!hasNext())
                     return null;
-                pair.setFirst(pair.second());
-                pair.setSecond(iterator.next());
-                return pair;
+                if (!iterator.hasNext() && isClosed() && first != null) {
+                    current.setFirst(current.second());
+                    current.setSecond(first);
+                    first = null;
+                    return current;
+                }
+                current.setFirst(current.second());
+                current.setSecond(iterator.next());
+                return current;
             }
         };
     }
@@ -89,5 +96,13 @@ public class ArrayListChain<T> implements Chain<T> {
     @Override
     public void setClosure(boolean closure) {
         this.closure = closure;
+    }
+
+    @Override
+    public Chain<T> copy() {
+        Chain<T> ch = new ArrayListChain<>();
+        ch.setClosure(isClosed());
+        ch.setPoints(List.copyOf(getPoints()));
+        return ch;
     }
 }

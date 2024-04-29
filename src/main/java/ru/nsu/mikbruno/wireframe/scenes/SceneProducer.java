@@ -1,5 +1,6 @@
-package ru.nsu.mikbruno.wireframe;
+package ru.nsu.mikbruno.wireframe.scenes;
 
+import ru.nsu.mikbruno.wireframe.BSplineProducer;
 import ru.nsu.mikbruno.wireframe.chains.ArrayListChain;
 import ru.nsu.mikbruno.wireframe.chains.Chain;
 import ru.nsu.mikbruno.wireframe.chains.PointUV;
@@ -26,25 +27,22 @@ public final class SceneProducer {
                 .toList();
         Scene scene = new ArrayListScene();
         List<Chain<Point3D>> circles = segmentPoints.stream()
-                .map(p -> (Chain<Point3D>) new ArrayListChain<Point3D>(
-                        List.of(new Point3DImpl(p))
-                ))
+                .map(p -> (Chain<Point3D>) new ArrayListChain<Point3D>())
                 .toList();
         for (int i = 0; i < generatrixCount; ++i) {
-            scene.addChain(spline3d);
-            RotateOperator operator = new RotateOperator((2 * Math.PI * i)/generatrixCount, Axis.Y);
-            spline3d = operator.apply(spline3d);
+            double angle = 2 * Math.PI * i / (double) generatrixCount;
+            RotateOperator operator = new RotateOperator(angle, Axis.Y);
+            scene.addChain(operator.apply(spline3d));
             for (int j = 0; j < circleSegments; ++j) {
+                angle = 2 * Math.PI * (i * circleSegments + j) / (double) (generatrixCount * circleSegments);
+                operator = new RotateOperator(angle, Axis.Y);
                 for (int c = 0; c < circles.size(); ++c) {
                     circles.get(c).addPoint(operator.apply(segmentPoints3d.get(c)));
                 }
-                operator = new RotateOperator(
-                        (2 * Math.PI * (i * generatrixCount + j)) / (generatrixCount * circleSegments),
-                        Axis.Y
-                );
             }
         }
         for (Chain<Point3D> circle : circles) {
+            circle.setClosure(true);
             scene.addChain(circle);
         }
 

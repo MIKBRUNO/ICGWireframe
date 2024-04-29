@@ -17,4 +17,5 @@ public interface Chain<PType> {
     PType removePoint();
     boolean isClosed();
     void setClosure(boolean closure);
+    Chain<PType> copy();
 }

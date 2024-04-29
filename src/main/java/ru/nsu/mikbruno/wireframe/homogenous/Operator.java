@@ -1,23 +1,25 @@
 package ru.nsu.mikbruno.wireframe.homogenous;
 
-import ru.nsu.mikbruno.wireframe.ArrayListScene;
+import ru.nsu.mikbruno.wireframe.scenes.ArrayListScene;
 import ru.nsu.mikbruno.wireframe.MatrixUtils;
-import ru.nsu.mikbruno.wireframe.Scene;
-import ru.nsu.mikbruno.wireframe.chains.ArrayListChain;
+import ru.nsu.mikbruno.wireframe.scenes.Scene;
 import ru.nsu.mikbruno.wireframe.chains.Chain;
 
 public abstract class Operator {
     protected abstract double[][] matrix();
 
     public Point3D apply(Point3D p) {
-        return new Point3DImpl(MatrixUtils.matrixMultiplication(p.get(), matrix()));
+        return new Point3DImpl(MatrixUtils.matrixMultiplication(
+                p.get(),
+                MatrixUtils.transpose(matrix())
+        ));
     }
 
     public Operator apply(Operator op) {
         return new Operator() {
             private final double[][] mat = MatrixUtils.matrixMultiplication(
-                    op.matrix(),
-                    MatrixUtils.transpose(matrix())
+                    matrix(),
+                    op.matrix()
             );
 
             @Override
@@ -28,7 +30,9 @@ public abstract class Operator {
     }
 
     public Chain<Point3D> apply(Chain<Point3D> chain) {
-        return new ArrayListChain<>(chain.getPoints().stream().map(this::apply).toList());
+        Chain<Point3D> res = chain.copy();
+        res.setPoints(chain.getPoints().stream().map(this::apply).toList());
+        return res;
     }
 
     public Scene apply(Scene scene) {

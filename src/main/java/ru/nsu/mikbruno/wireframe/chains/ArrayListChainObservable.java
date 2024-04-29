@@ -66,6 +66,11 @@ public class ArrayListChainObservable<T> implements Chain<T>, Observable {
         chain.setClosure(closure);
     }
 
+    @Override
+    public Chain<T> copy() {
+        return chain.copy();
+    }
+
     private final ObservableImpl observable = new ObservableImpl();
 
     @Override

@@ -74,7 +74,7 @@ public class BSplineView extends JPanel {
 
     private int convertPosV(double v) {
         return (int) Math.round(
-                (-v - viewportCenter.getV() + viewportHeight / 2)
+                (v - viewportCenter.getV() + viewportHeight / 2)
                         * (panelHeight / viewportHeight)
         );
     }
@@ -92,7 +92,7 @@ public class BSplineView extends JPanel {
     }
 
     private double deconvertPosV(int y) {
-        return -(y * (viewportHeight / panelHeight) + viewportCenter.getV() - viewportHeight / 2);
+        return y * (viewportHeight / panelHeight) + viewportCenter.getV() - viewportHeight / 2;
     }
 
     private double deconvertWidth(int w) {
@@ -127,9 +127,19 @@ public class BSplineView extends JPanel {
         int uaxis = convertPosV(0);
         if (vaxis > 0 && vaxis < panelWidth) {
             g.drawLine(vaxis, 0, vaxis, panelHeight);
+            double grid = Math.ceil(deconvertPosV(0));
+            while (convertPosV(grid) < panelHeight) {
+                g.drawLine(vaxis, convertPosV(grid), vaxis + 3, convertPosV(grid));
+                grid += 1;
+            }
         }
         if (uaxis > 0 && uaxis < panelHeight) {
             g.drawLine(0, uaxis, panelWidth, uaxis);
+            double grid = Math.ceil(deconvertPosU(0));
+            while (convertPosU(grid) < panelWidth) {
+                g.drawLine(convertPosU(grid), uaxis, convertPosU(grid), uaxis + 3);
+                grid += 1;
+            }
         }
         g.setColor(Color.LIGHT_GRAY);
         for (Iterator<Pair<PointUV>> it = chain.getEdgesIterator(); it.hasNext(); ) {
@@ -139,7 +149,7 @@ public class BSplineView extends JPanel {
             }
             g.drawOval(
                     convertPosU(p.first().getU() - POINT_AREA_RADIUS),
-                    convertPosV(p.first().getV() + POINT_AREA_RADIUS),
+                    convertPosV(p.first().getV() - POINT_AREA_RADIUS),
                     convertWidth(POINT_AREA_RADIUS*2), convertHeight(POINT_AREA_RADIUS*2)
             );
             g.setColor(Color.LIGHT_GRAY);
@@ -148,7 +158,7 @@ public class BSplineView extends JPanel {
             }
             g.drawOval(
                     convertPosU(p.second().getU() - POINT_AREA_RADIUS),
-                    convertPosV(p.second().getV() + POINT_AREA_RADIUS),
+                    convertPosV(p.second().getV() - POINT_AREA_RADIUS),
                     convertWidth(POINT_AREA_RADIUS*2), convertHeight(POINT_AREA_RADIUS*2)
             );
             g.setColor(Color.LIGHT_GRAY);
@@ -210,8 +220,8 @@ public class BSplineView extends JPanel {
             double u = viewportCenter.getU();
             int x = e.getX() + (int) Math.round((convertPosU(u) - e.getX()) * (newViewportWidth / viewportWidth));
             double v = viewportCenter.getV();
-            int y = e.getY() + (int) Math.round((convertPosV(-v) - e.getY()) * (newViewportHeight / viewportHeight));
-            viewportCenter = new PointUVImpl(deconvertPosU(x), -deconvertPosV(y));
+            int y = e.getY() + (int) Math.round((convertPosV(v) - e.getY()) * (newViewportHeight / viewportHeight));
+            viewportCenter = new PointUVImpl(deconvertPosU(x), deconvertPosV(y));
             viewportWidth = newViewportWidth;
             viewportHeight = newViewportHeight;
             repaint();
@@ -230,7 +240,7 @@ public class BSplineView extends JPanel {
             else if ((e.getModifiersEx() & MouseEvent.BUTTON1_DOWN_MASK) == MouseEvent.BUTTON1_DOWN_MASK) {
                 currentPoint.setUV(
                         currentPoint.getU() + deconvertWidth(e.getX() - oldX),
-                        currentPoint.getV() - deconvertHeight(e.getY() - oldY)
+                        currentPoint.getV() + deconvertHeight(e.getY() - oldY)
                 );
             }
             oldX = e.getX();
