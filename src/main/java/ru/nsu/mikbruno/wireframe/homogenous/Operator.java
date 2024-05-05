@@ -16,9 +16,10 @@ public abstract class Operator {
     }
 
     public Operator apply(Operator op) {
+        Operator og = this;
         return new Operator() {
             private final double[][] mat = MatrixUtils.matrixMultiplication(
-                    matrix(),
+                    og.matrix(),
                     op.matrix()
             );
 
