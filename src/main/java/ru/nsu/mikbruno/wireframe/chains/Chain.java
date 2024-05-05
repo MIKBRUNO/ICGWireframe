@@ -9,12 +9,15 @@ import java.util.List;
 
 public interface Chain<PType> {
     Iterator<PType> getPointsIterator();
-    @UnmodifiableView
+//    @UnmodifiableView
     List<PType> getPoints();
     void setPoints(List<PType> points);
     Iterator<Pair<PType>> getEdgesIterator();
     void addPoint(PType p);
     PType removePoint();
+    default void removePoint(PType p) {
+        getPoints().remove(p);
+    }
     boolean isClosed();
     void setClosure(boolean closure);
     Chain<PType> copy();

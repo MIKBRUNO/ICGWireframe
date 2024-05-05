@@ -94,14 +94,14 @@ public class BSplineEditor extends JDialog {
         JButton normButton = new JButton("Normalize");
 
         JPanel settings = new JPanel(new GridLayout(3, 5));
-        settings.add(new Label("N")); settings.add(splineSegSpinner);
-        settings.add(new Label("K")); settings.add(pointsSpinner);
+        settings.add(new Label("N", Label.RIGHT)); settings.add(splineSegSpinner);
+        settings.add(new Label("K", Label.RIGHT)); settings.add(pointsSpinner);
         settings.add(okButton);
-        settings.add(new Label("M1")); settings.add(circleSegSpinner);
-        settings.add(new Label("M")); settings.add(gensSpinner);
+        settings.add(new Label("M1", Label.RIGHT)); settings.add(circleSegSpinner);
+        settings.add(new Label("M", Label.RIGHT)); settings.add(gensSpinner);
         settings.add(applyButton);
-        settings.add(new Label("Current U")); settings.add(currentPointUSpinner);
-        settings.add(new Label("Current V")); settings.add(currentPointVSpinner);
+        settings.add(new Label("Current U", Label.RIGHT)); settings.add(currentPointUSpinner);
+        settings.add(new Label("Current V", Label.RIGHT)); settings.add(currentPointVSpinner);
         settings.add(normButton);
         add(settings, BorderLayout.SOUTH);
 

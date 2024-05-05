@@ -45,7 +45,8 @@ public final class BSplineProducer {
                 )[0][0];
                 PointUV point = new PointUVImpl(ui, vi);
                 result.addPoint(point);
-                onSegment.accept(point);
+                if (i == 0)
+                    onSegment.accept(point);
             }
             if (!it.hasNext()) {
                 double [][] TM = MatrixUtils.matrixMultiplication(

@@ -19,7 +19,7 @@ public class Point3DImpl implements Point3D {
 
     // yes this way
     public Point3DImpl(PointUV pointUV) {
-        set(pointUV.getV(), pointUV.getU(), 0);
+        set(pointUV.getV(), -pointUV.getU(), 0);
     }
 
     @Override

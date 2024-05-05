@@ -30,17 +30,17 @@ public class MainWindow extends JFrame {
         Observables observables = new Observables(Map.of(
                 "chain",
                 new ArrayListChainObservable<PointUV>(List.of(
-                        new PointUVImpl(0, 0),
+                        new PointUVImpl(-1, 0),
+                        new PointUVImpl(-1, 1),
                         new PointUVImpl(1, 1),
-                        new PointUVImpl(1, 2),
-                        new PointUVImpl(0, 2)
+                        new PointUVImpl(1, 0)
                 )),
                 "spline_segments",
-                new IntObservable(1),
+                new IntObservable(4),
                 "generatricies",
-                new IntObservable(2),
+                new IntObservable(10),
                 "circle_segments",
-                new IntObservable(1)
+                new IntObservable(5)
         ));
 
         List<InteractionGroup> groups = List.of(

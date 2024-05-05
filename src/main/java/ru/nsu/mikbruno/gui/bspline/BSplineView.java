@@ -183,6 +183,30 @@ public class BSplineView extends JPanel {
         private boolean moving = false;
 
         @Override
+        public void mouseClicked(MouseEvent e) {
+            super.mouseClicked(e);
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                chain.addPoint(new PointUVImpl(deconvertPosU(e.getX()), deconvertPosV(e.getY())));
+
+                return;
+            }
+            if (e.getButton() != MouseEvent.BUTTON3 || chain.getPoints().size() <= 4) return;
+            for (Iterator<PointUV> it = chain.getPointsIterator(); it.hasNext(); ) {
+                PointUV point = it.next();
+                double distU = deconvertPosU(oldX) - point.getU();
+                double distV = deconvertPosV(oldY) - point.getV();
+                double dist = distU*distU + distV*distV;
+                if (dist > POINT_AREA_RADIUS * POINT_AREA_RADIUS) {
+                    continue;
+                }
+                chain.removePoint(point);
+                currentPoint.setPoint(null);
+
+                return;
+            }
+        }
+
+        @Override
         public void mousePressed(MouseEvent e) {
             super.mousePressed(e);
             oldX = e.getX();
